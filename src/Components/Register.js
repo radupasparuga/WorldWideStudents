@@ -18,13 +18,47 @@ const styles = theme => ({
 });
 
 class Register extends React.Component {
-  handleRegister(firstName, lastName, password, email, username) {
+  constructor(props){
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      username: ''
+    };
+
+    this.handleFirst = this.handleFirst.bind(this);
+    this.handleLast = this.handleLast.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleUsername = this.handleUsername.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
+  }
+  
+  handleFirst(event) {
+    this.setState({firstName: event.target.value});
+  }
+  handleLast(event) {
+    this.setState({lastName: event.target.value});
+  }
+  handleEmail(event) {
+    this.setState({email: event.target.value});
+  }
+  handlePassword(event) {
+    this.setState({password: event.target.value});
+  }
+  handleUsername(event) {
+    this.setState({username: event.target.value});
+  }
+
+  handleRegister() {
     axios.post('/auth/signup', {
-      firstName: firstName,
-      lastName: lastName,
-      password: password,
-      email: email,
-      username: username
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      password: this.state.password,
+      email: this.state.email,
+      username: this.state.username
     })
     .then((response) => {
       console.log(response);
@@ -41,30 +75,40 @@ class Register extends React.Component {
           label="First Name"
           margin="normal"
           variant="outlined"
+          value={this.state.value} 
+          onChange={this.handleFirst}
         /><br/>
         <TextField
           id="lastName"
           label="Last Name"
           margin="normal"
           variant="outlined"
+          value={this.state.value} 
+          onChange={this.handleLast}
         /><br/>
 				<TextField
           id="username"
           label="Username"
           margin="normal"
           variant="outlined"
+          value={this.state.value} 
+          onChange={this.handleUsername}
         /><br/>
 				<TextField
           id="email"
           label="E-mail"
           margin="normal"
           variant="outlined"
+          value={this.state.value} 
+          onChange={this.handleEmail}
         /><br/>
 				<TextField
           id="password"
           label="Password"
           margin="normal"
           variant="outlined"
+          value={this.state.value} 
+          onChange={this.handlePassword}
         /><br/>
 				<TextField
           id="passwordConfirmation"
@@ -72,7 +116,7 @@ class Register extends React.Component {
           margin="normal"
           variant="outlined"
         />
-        <Button variant="contained" color="primary" onClick={this.handleRegister(this.firstName, this.lastName, this.password, this.email, this.username)}>
+        <Button variant="contained" color="primary" onClick={this.handleRegister}>
           Sign up
         </Button>
       </form>
