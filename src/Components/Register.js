@@ -3,6 +3,7 @@ import axios  from 'axios'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { Alert } from 'evergreen-ui'
 import './Register.css'
 
@@ -19,30 +20,40 @@ class Register extends React.Component {
     this.state = {
       firstName: '', // first name input from user
       lastName: '', // last name input from user
+      username: '', // username input from user
       email: '', // email input from user
       password: '', // password input from user
-      username: '', // username input from user
-      emailAlert:'', // alert in case email input is invalid
-      emailClass: 'alertInvis', // class of the alert(if it's alertInvis the alert won't show)
+      passwordVerif: '', // password verify input from user
       firstAlert:'',// alert in case first name input is invalid
       firstClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
       lastAlert:'',// alert in case last name input is invalid
       lastClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
       usernameAlert:'',// alert in case username input is invalid
       usernameClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
+      emailAlert:'', // alert in case email input is invalid
+      emailClass: 'alertInvis', // class of the alert(if it's alertInvis the alert won't show)
       passwordAlert:'',// alert in case password input is invalid
       passwordClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
       passwordVerifAlert:'',  // alert in case passwordVerif input is invalid
       passwordVerifClass: 'alertInvis', // class of the alert(if it's alertInvis the alert won't show)
+      barValue: '0',
+      barColor: 'primary',
+      verifFirst: '0',
+      verifLast: '0',
+      verifUsername: '0',
+      verifEmail: '0',
+      verifPassword: '0',
+      verifPasswordVerif: '0'
     };
 
     // Connecting the methods to the state 
 
     this.handleFirst = this.handleFirst.bind(this);
     this.handleLast = this.handleLast.bind(this);
+    this.handleUsername = this.handleUsername.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
+    this.handlePasswordVerif = this.handlePasswordVerif.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
   
@@ -54,6 +65,7 @@ class Register extends React.Component {
       this.setState({firstAlert:"Don't leave this field blank!"})
       this.setState({firstClass:"alertShow"})
     }else{
+      this.setState({verifFirst: '1'})
       this.setState({firstClass:"alertInvis"})
     }
   }
@@ -66,7 +78,21 @@ class Register extends React.Component {
       this.setState({lastAlert:"Don't leave this field blank!"})
       this.setState({lastClass:"alertShow"})
     }else{
+      this.setState({verifLast: '1'})
       this.setState({lastClass:"alertInvis"})
+    }
+  }
+
+  // Validates the username
+
+  handleUsername(event) {
+    this.setState({username: event.target.value});
+    if(this.state.username.length < 5){
+      this.setState({usernameAlert:"Username must be longer than 5 characters!"})
+      this.setState({usernameClass:"alertShow"})
+    }else{
+      this.setState({verifUsername: '1'})
+      this.setState({usernameClass:"alertInvis"})
     }
   }
 
@@ -78,6 +104,7 @@ class Register extends React.Component {
       this.setState({emailAlert: "Please insert a valid E-mail adress!"})
       this.setState({emailClass: "alertShow"})
     }else{
+      this.setState({verifEmail: '1'})
       this.setState({emailClass: "alertInvis"})
     }
   }
@@ -101,40 +128,57 @@ class Register extends React.Component {
       }
       let sum = counter[0] + counter[1] + counter[2] + counter[3];
       if(sum === 0){
+        this.setState({barValue: '0'})
         console.log(0);
       }else if(sum === 1){
+        this.setState({barValue: '30'})
         console.log(1)
       }else if(sum === 2 && counter[0] === 1){
+        this.setState({barValue: '50'});
+        this.setState({verifEmail: '1'})
         console.log(2)
       }else if(sum === 3 && counter[0] === 1){
+        this.setState({barValue: '70'});
         console.log(31)
       }else if(sum === 4){
+        this.setState({barValue: '100'});
         console.log(4)
       }
   }
 
-  // Validates the username
+  // Verifies if the password verification input is the same as the password TODO FIX PASSWORD NOT COMPARING RIGHT BUG
 
-  handleUsername(event) {
-    this.setState({username: event.target.value});
+  handlePasswordVerif(event) {
+    this.setState({passwordVerif: event.target.value});
+    if(this.state.passwordVerif !== this.state.password){
+      this.setState({passwordVerifAlert:"The two passwords must coincide!"})
+      this.setState({passwordVerifClass:"alertShow"})
+    }else{
+      this.setState({passwordVerifClass:"alertInvis"})
+      this.setState({verifPasswordVerif: '1'})
+    }
   }
-
+    
   // Sending post request for signup to API using axio
 
   handleRegister() {
-    axios.post('/auth/signup', {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      password: this.state.password,
-      email: this.state.email,
-      username: this.state.username
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    if(this.state.verifFirst =='1' && this.state.verifLast =='1' && this.state.verifUsername =='1' && this.state.verifEmail  =='1'&& this.state.verifPassword  =='1'&& this.state.verifPasswordVerif =='1'){
+      axios.post('/auth/signup', {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        password: this.state.password,
+        email: this.state.email,
+        username: this.state.username
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else{
+      console.log("Something went wrong oops")
+    }
   }
   render() {
     return (
@@ -144,7 +188,6 @@ class Register extends React.Component {
           label="First Name"
           margin="normal"
           variant="outlined"
-          required={true}
           value={this.state.value} 
           onChange={this.handleFirst}
         />
@@ -162,7 +205,13 @@ class Register extends React.Component {
           variant="outlined"
           value={this.state.value} 
           onChange={this.handleLast}
-        /><br/>
+        />
+        <div className={this.state.lastClass}>
+          <Alert
+            intent="danger"
+            title={this.state.lastAlert}
+          />
+        </div><br/>
 				<TextField
           id="username"
           label="Username"
@@ -170,7 +219,13 @@ class Register extends React.Component {
           variant="outlined"
           value={this.state.value} 
           onChange={this.handleUsername}
-        /><br/>
+        />
+        <div className={this.state.usernameClass}>
+          <Alert
+            intent="danger"
+            title={this.state.usernameAlert}
+          />
+        </div><br/>
 				<TextField
           id="email"
           label="E-mail"
@@ -195,14 +250,24 @@ class Register extends React.Component {
           type="password"
           value={this.state.value} 
           onChange={this.handlePassword}
-        /><br/>
+        />
+        <LinearProgress color={this.state.barColor} value={this.state.barValue} variant="determinate"/>
+        <br/>
 				<TextField
           id="passwordConfirmation"
           label="Password Confirmation"
           margin="normal"
           type="password"
           variant="outlined"
+          value={this.state.value} 
+          onChange={this.handlePasswordVerif}
         />
+        <div className={this.state.passwordVerifClass}>
+          <Alert
+            intent="danger"
+            title={this.state.passwordVerifAlert}
+          />
+        </div><br/>
         <Button variant="contained" color="primary" onClick={this.handleRegister}>
           Sign up
         </Button>
