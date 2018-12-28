@@ -1,0 +1,12 @@
+.emailAlertInvis{
+    display:none;
+}
+
+.alertShow{
+    display: true;
+}
+
+
+.alertInvis{
+    display: none;
+}
