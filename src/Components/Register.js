@@ -114,35 +114,30 @@ class Register extends React.Component {
   handlePassword(event) {
     this.setState({password: event.target.value});
     let counter = [0,0,0,0];
-      if(this.state.password.length > 7){
+      if(event.target.value.length > 7){
         counter[0] = 1;
       }
-      if(/[A-Z]+/.test(this.state.password)){
+      if(/[A-Z]+/.test(event.target.value)){
         counter[1] = 1;
       }
-      if(/[1-9]+/.test(this.state.password)){
+      if(/[1-9]+/.test(event.target.value)){
         counter[2] = 1;
       }
-      if(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(this.state.password)){
+      if(/[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(event.target.value)){
         counter[3] = 1;
       }
       let sum = counter[0] + counter[1] + counter[2] + counter[3];
       if(sum === 0){
         this.setState({barValue: '0'})
-        console.log(0);
       }else if(sum === 1){
         this.setState({barValue: '30'})
-        console.log(1)
       }else if(sum === 2 && counter[0] === 1){
+        this.setState({verifPassword: '1'})
         this.setState({barValue: '50'});
-        this.setState({verifEmail: '1'})
-        console.log(2)
       }else if(sum === 3 && counter[0] === 1){
         this.setState({barValue: '70'});
-        console.log(31)
       }else if(sum === 4){
         this.setState({barValue: '100'});
-        console.log(4)
       }
   }
 
@@ -150,7 +145,7 @@ class Register extends React.Component {
 
   handlePasswordVerif(event) {
     this.setState({passwordVerif: event.target.value});
-    if(this.state.passwordVerif !== this.state.password){
+    if(event.target.value !== this.state.password){
       this.setState({passwordVerifAlert:"The two passwords must coincide!"})
       this.setState({passwordVerifClass:"alertShow"})
     }else{
@@ -162,7 +157,7 @@ class Register extends React.Component {
   // Sending post request for signup to API using axio
 
   handleRegister() {
-    if(this.state.verifFirst =='1' && this.state.verifLast =='1' && this.state.verifUsername =='1' && this.state.verifEmail  =='1'&& this.state.verifPassword  =='1'&& this.state.verifPasswordVerif =='1'){
+    if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifEmail  === '1'&& this.state.verifPassword  === '1'&& this.state.verifPasswordVerif =='1'){
       axios.post('/auth/signup', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
