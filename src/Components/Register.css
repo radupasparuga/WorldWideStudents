@@ -1,3 +1,8 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
 .emailAlertInvis{
     display:none;
 }
@@ -9,4 +14,9 @@
 
 .alertInvis{
     display: none;
+}
+
+.alert{
+    color: #db2828;
+    max-width: 150px;
 }

@@ -2,9 +2,8 @@ import React from 'react'
 import axios  from 'axios'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { Alert } from 'evergreen-ui'
+import { Button } from 'semantic-ui-react'
+import { Progress } from 'semantic-ui-react'
 import './Register.css'
 
 const styles = theme => ({
@@ -37,7 +36,8 @@ class Register extends React.Component {
       passwordVerifAlert:'',  // alert in case passwordVerif input is invalid
       passwordVerifClass: 'alertInvis', // class of the alert(if it's alertInvis the alert won't show)
       barValue: '0',
-      barColor: 'primary',
+      barLabel: '',
+      barColor: 'red',
       verifFirst: '0',
       verifLast: '0',
       verifUsername: '0',
@@ -128,20 +128,30 @@ class Register extends React.Component {
       }
       let sum = counter[0] + counter[1] + counter[2] + counter[3];
       if(sum === 0){
+        this.setState({barLabel: 'Invalid'})
         this.setState({barValue: '0'})
+        this.setState({barColor: 'red'})
       }else if(sum === 1){
+        this.setState({barLabel: 'Weak'})
+        this.setState({barColor: 'yellow'})
         this.setState({barValue: '30'})
       }else if(sum === 2 && counter[0] === 1){
+        this.setState({barLabel: 'Good'})
+        this.setState({barColor: 'blue'})
         this.setState({verifPassword: '1'})
         this.setState({barValue: '50'});
       }else if(sum === 3 && counter[0] === 1){
+        this.setState({barColor: 'olive'})
+        this.setState({barLabel: 'Strong'})
         this.setState({barValue: '70'});
       }else if(sum === 4){
+        this.setState({barLabel: 'Very Strong'})
+        this.setState({barColor: 'green'})
         this.setState({barValue: '100'});
       }
   }
 
-  // Verifies if the password verification input is the same as the password TODO FIX PASSWORD NOT COMPARING RIGHT BUG
+  // Verifies if the password verification input is the same as the password 
 
   handlePasswordVerif(event) {
     this.setState({passwordVerif: event.target.value});
@@ -157,7 +167,7 @@ class Register extends React.Component {
   // Sending post request for signup to API using axio
 
   handleRegister() {
-    if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifEmail  === '1'&& this.state.verifPassword  === '1'&& this.state.verifPasswordVerif =='1'){
+    if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifEmail  === '1'&& this.state.verifPassword  === '1'&& this.state.verifPasswordVerif ==='1'){
       axios.post('/auth/signup', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -166,7 +176,7 @@ class Register extends React.Component {
         username: this.state.username
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.message);
       })
       .catch((error) => {
         console.log(error);
@@ -177,96 +187,82 @@ class Register extends React.Component {
   }
   render() {
     return (
-      <form  autoComplete="off">
-        <TextField
-          id="firstName"
-          label="First Name"
-          margin="normal"
-          variant="outlined"
-          value={this.state.value} 
-          onChange={this.handleFirst}
-        />
-        <div className={this.state.firstClass}>
-          <Alert
-            intent="danger"
-            title={this.state.firstAlert}
+      <div className="container">
+        <form  autoComplete="off">
+          <TextField
+            id="firstName"
+            label="First Name"
+            margin="normal"
+            variant="outlined"
+            value={this.state.value} 
+            onChange={this.handleFirst}
           />
-        </div>
-        <br/>
-        <TextField
-          id="lastName"
-          label="Last Name"
-          margin="normal"
-          variant="outlined"
-          value={this.state.value} 
-          onChange={this.handleLast}
-        />
-        <div className={this.state.lastClass}>
-          <Alert
-            intent="danger"
-            title={this.state.lastAlert}
+          <div className={this.state.firstClass}>
+            <p className="alert">{this.state.firstAlert}</p>
+          </div>
+          <br/>
+          <TextField
+            id="lastName"
+            label="Last Name"
+            margin="normal"
+            variant="outlined"
+            value={this.state.value} 
+            onChange={this.handleLast}
           />
-        </div><br/>
-				<TextField
-          id="username"
-          label="Username"
-          margin="normal"
-          variant="outlined"
-          value={this.state.value} 
-          onChange={this.handleUsername}
-        />
-        <div className={this.state.usernameClass}>
-          <Alert
-            intent="danger"
-            title={this.state.usernameAlert}
+          <div className={this.state.lastClass}>
+            <p className="alert">{this.state.lastAlert}</p>
+          </div><br/>
+				  <TextField
+            id="username"
+            label="Username"
+            margin="normal"
+            variant="outlined"
+            value={this.state.value} 
+            onChange={this.handleUsername}
           />
-        </div><br/>
-				<TextField
-          id="email"
-          label="E-mail"
-          margin="normal"
-          variant="outlined"
-          type="email"
-          value={this.state.value} 
-          onChange={this.handleEmail}
-        />
-        <div className={this.state.emailClass}>
-          <Alert
-            intent="danger"
-            title={this.state.emailAlert}
+          <div className={this.state.usernameClass}>
+            <p className="alert">{this.state.usernameAlert}</p>
+          </div><br/>
+				  <TextField
+            id="email"
+            label="E-mail"
+            margin="normal"
+            variant="outlined"
+            type="email"
+            value={this.state.value} 
+            onChange={this.handleEmail}
           />
-        </div>
-        <br/>
-				<TextField
-          id="password"
-          label="Password"
-          margin="normal"
-          variant="outlined"
-          type="password"
-          value={this.state.value} 
-          onChange={this.handlePassword}
-        />
-        <LinearProgress color={this.state.barColor} value={this.state.barValue} variant="determinate"/>
-        <br/>
-				<TextField
-          id="passwordConfirmation"
-          label="Password Confirmation"
-          margin="normal"
-          type="password"
-          variant="outlined"
-          value={this.state.value} 
-          onChange={this.handlePasswordVerif}
-        />
-        <div className={this.state.passwordVerifClass}>
-          <Alert
-            intent="danger"
-            title={this.state.passwordVerifAlert}
+          <div className={this.state.emailClass}>
+            <p className="alert">{this.state.emailAlert}</p>
+          </div>
+          <br/>
+				  <TextField
+            id="password"
+            label="Password"
+            margin="normal"
+            variant="outlined"
+            type="password"
+            value={this.state.value} 
+            onChange={this.handlePassword}
           />
-        </div><br/>
-        <Button variant="contained" color="primary" onClick={this.handleRegister}>
-          Sign up
-        </Button>
-      </form>
+          <Progress percent={this.state.barValue} label={this.state.barLabel} size='small' color={this.state.barColor}/>
+				  <TextField
+            id="passwordConfirmation"
+            label="Password Confirmation"
+            margin="normal"
+            type="password"
+            variant="outlined"
+            value={this.state.value} 
+            onChange={this.handlePasswordVerif}
+          />
+          <div className={this.state.passwordVerifClass}>
+          <p className="alert">{this.state.passwordVerifAlert}</p>
+          </div><br/>
+          <Button color="blue" onClick={this.handleRegister}>
+            Sign up
+          </Button>
+        </form>
+      </div>
     );
   }
 }
