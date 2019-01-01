@@ -2,24 +2,23 @@ import React from "react";
 import Home from "./Components/Home"
 import Login from "./Components/Login"
 import Register from "./Components/Register"
+import { Menu } from 'semantic-ui-react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const App = () => (
   <Router>
     <div>
-      <nav>
-        <ul>
-          <li>
+      <Menu>
+          <Menu.Item>
             <Link to="/">Home</Link>
-          </li>
-          <li>
+          </Menu.Item>
+          <Menu.Item>
             <Link to="/login/">Login</Link>
-          </li>
-          <li>
+          </Menu.Item>
+          <Menu.Item>
             <Link to="/register/">Register</Link>
-          </li>
-        </ul>
-      </nav>
+          </Menu.Item>
+      </Menu>
 
       <Route path="/" exact component={Home} />
       <Route path="/login/" component={Login} />

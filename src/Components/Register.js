@@ -43,7 +43,10 @@ class Register extends React.Component {
       verifUsername: '0',
       verifEmail: '0',
       verifPassword: '0',
-      verifPasswordVerif: '0'
+      verifPasswordVerif: '0',
+      statusClass: '',
+      registerClass: 'alertInvis',
+      registerStatusAlert: '',
     };
 
     // Connecting the methods to the state 
@@ -166,7 +169,8 @@ class Register extends React.Component {
     
   // Sending post request for signup to API using axio
 
-  handleRegister() {
+  handleRegister(e) {
+    e.preventDefault()
     if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifEmail  === '1'&& this.state.verifPassword  === '1'&& this.state.verifPasswordVerif ==='1'){
       axios.post('/auth/signup', {
         firstName: this.state.firstName,
@@ -176,13 +180,17 @@ class Register extends React.Component {
         username: this.state.username
       })
       .then((response) => {
-        console.log(response.message);
+        this.setState({registerClass: 'alertShow'})
+        this.setState({registerStatusAlert: 'Login succesfull'})
+        this.setState({statusClass: 'success'})
       })
       .catch((error) => {
         console.log(error);
       });
     }else{
-      console.log("Something went wrong oops")
+      this.setState({registerClass: 'alertShow'})
+      this.setState({registerStatusAlert: 'Something went wrong oops'})
+      this.setState({statusClass: 'alert'})
     }
   }
   render() {
@@ -261,6 +269,9 @@ class Register extends React.Component {
           <Button color="blue" onClick={this.handleRegister}>
             Sign up
           </Button>
+          <div className={this.state.registerClass}>
+            <p className={this.state.statusClass}>{this.state.registerStatusAlert}</p>
+          </div>
         </form>
       </div>
     );
