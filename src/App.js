@@ -16,7 +16,7 @@ const App = () => (
             <Link to="/login/">Login</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to="/register/">Register</Link>
+            <Link to="/register/">Sign up</Link>
           </Menu.Item>
       </Menu>
 

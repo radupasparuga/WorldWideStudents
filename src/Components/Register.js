@@ -197,6 +197,7 @@ class Register extends React.Component {
     return (
       <div className="container">
         <form  autoComplete="off">
+        <h1>Sign up</h1>
           <TextField
             id="firstName"
             label="First Name"
