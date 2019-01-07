@@ -26,13 +26,13 @@ class Login extends React.Component{
 		this.setState({password: event.target.value})
 	}
 
-	handleLogin(e){
+	handleLogin(e){ // Login meme
 		e.preventDefault()
 		axios.post('/auth/login',{
 			username: this.state.username,
 			password: this.state.password
 		}).then((response) =>{
-			console.log(response)
+			document.cookie = "login_token = " + response.data.token+";path=/;" // storing login token in cookie
 		})
 		.catch((error) =>{
 			console.log(error)
