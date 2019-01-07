@@ -17,7 +17,7 @@ class Login extends React.Component{
 		// Connecting methods to state
 
 		this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+		this.handleLogin = this.handleLogin.bind(this);
 	}
 
 	handleInputChange(e) {
@@ -35,59 +35,69 @@ class Login extends React.Component{
 		this.props.loginUser(user);
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if(nextProps.errors) {
-				this.setState({
-						errors: nextProps.errors
-				});
+	componentDidMount() {
+				if(this.props.auth.isAuthenticated) {
+						this.props.history.push('/');
+				}
 		}
-}
-    render() {
+
+		componentWillReceiveProps(nextProps) {
+				if(nextProps.auth.isAuthenticated) {
+						this.props.history.push('/')
+				}
+				if(nextProps.errors) {
+						this.setState({
+								errors: nextProps.errors
+						});
+				}
+		}
+
+		render() {
 				const {errors} = this.state;
-        return (
-            <div className="container">
-              <form onSubmit={ this.handleLogin}>
+				return (
+						<div className="container">
+							<form onSubmit={ this.handleLogin}>
 								<h1>Log in</h1>
 								<div className="form-group">
 									<TextField
-            				id="username"
-            				label="Username"
-            				margin="normal"
-            				variant="outlined" 
+										id="username"
+										label="Username"
+										margin="normal"
+										variant="outlined" 
 										onChange={ this.handleInputChange }
-                    value={ this.state.username }
+										value={ this.state.username }
 										className={classnames('form-control form-control-lg', {
-                        'is-invalid': errors.username
-                    })}
-          				/>
+												'is-invalid': errors.username
+										})}
+									/>
 									{errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
 								</div>
 								<br/>
 								<div className="form-group">
 									<TextField
-            				id="password"
-            				label="Password"
-            				margin="normal"
-            				variant="outlined"
+										id="password"
+										label="Password"
+										margin="normal"
+										variant="outlined"
 										type="password"
 										onChange={ this.handleInputChange }
-                    value={ this.state.password }
+										value={ this.state.password }
 										className={classnames('form-control form-control-lg', {
-                        'is-invalid': errors.password
-                    })}
-          				/>
+												'is-invalid': errors.password
+										})}
+									/>
 									{errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
 								</div>
 								<br/>
-				  			<div className="form-group">
-                	<button type="submit" className="btn btn-primary">
-                  	Login
-                	</button>
-              	</div>
+								<div className="form-group">
+									<button type="submit" className="btn btn-primary">
+										Login
+									</button>
+								</div>
 							</form>
-          </div>
-        )
-    }
+					</div>
+				)
+		}
 }
 
 Login.propTypes = {

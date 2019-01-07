@@ -9,8 +9,8 @@ import classnames from 'classnames';
 import './Register.css'
 
 class Register extends React.Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
       firstName: '', // first name input from user
       lastName: '', // last name input from user
@@ -94,10 +94,19 @@ class Register extends React.Component {
   // Giving free errors
 
   componentWillReceiveProps(nextProps) {
+    if(nextProps.auth.isAuthenticated) {
+        this.props.history.push('/')
+    }
     if(nextProps.errors) {
         this.setState({
             errors: nextProps.errors
         });
+    }
+}
+
+  componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+        this.props.history.push('/');
     }
   }
 
