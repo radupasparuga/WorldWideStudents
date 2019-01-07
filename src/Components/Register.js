@@ -177,7 +177,7 @@ class Register extends React.Component {
   render() {
     return (
       <div className="container">
-        <form  autoComplete="off">
+        <form  onSubmit={ this.handleSubmit }>
         <h1>Sign up</h1>
           <TextField
             id="firstName"
@@ -235,7 +235,7 @@ class Register extends React.Component {
           <div className={this.state.passwordVerifClass}>
           <p className="alert">{this.state.passwordVerifAlert}</p>
           </div><br/>
-          <Button color="blue" onClick={this.handleRegister}>
+          <Button color="blue" type="submit">
             Sign up
           </Button>
           <div className={this.state.registerClass}>

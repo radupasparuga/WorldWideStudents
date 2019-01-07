@@ -7,25 +7,26 @@ import Home from "./Components/Home"
 import Login from "./Components/Login"
 import Register from "./Components/Register"
 
-
-import { Menu } from 'semantic-ui-react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => (
   <Provider store = { store }>
     <Router>
       <div>
-        <Menu>
-          <Menu.Item>
-            <Link to="/">Home</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/login/">Login</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/register/">Sign up</Link>
-          </Menu.Item>
-        </Menu>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <Link className="navbar-brand" to="/">Home</Link>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                  <Link to="/login/" className="nav-link">Login</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/register/" className="nav-link">Sign up</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
         <Route path="/" exact component={Home} />
         <Route path="/login/" component={Login} />
         <Route path="/register/" component={Register} />
