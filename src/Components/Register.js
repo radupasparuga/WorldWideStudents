@@ -91,7 +91,7 @@ class Register extends React.Component {
     this.props.registerUser(user, this.props.history);
   }
 
-  // 
+  // Giving free errors
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
