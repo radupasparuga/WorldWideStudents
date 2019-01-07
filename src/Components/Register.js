@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { registerUser } from '../actions/authentication'
 import TextField from '@material-ui/core/TextField'
-import { Button } from 'semantic-ui-react'
 import { Progress } from 'semantic-ui-react'
+import classnames from 'classnames';
 import './Register.css'
 
 class Register extends React.Component {
@@ -17,77 +17,16 @@ class Register extends React.Component {
       username: '', // username input from user
       password: '', // password input from user
       passwordVerif: '', // password verify input from user
-      firstAlert:'',// alert in case first name input is invalid
-      firstClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
-      lastAlert:'',// alert in case last name input is invalid
-      lastClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
-      usernameAlert:'',// alert in case username input is invalid
-      usernameClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
-      passwordAlert:'',// alert in case password input is invalid
-      passwordClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
-      passwordVerifAlert:'',  // alert in case passwordVerif input is invalid
-      passwordVerifClass: 'alertInvis', // class of the alert(if it's alertInvis the alert won't show)
       barValue: '0',
       barLabel: '',
       barColor: 'red',
-      verifFirst: '0',
-      verifLast: '0',
-      verifUsername: '0',
-      verifPassword: '0',
-      verifPasswordVerif: '0',
-      statusClass: '',
-      registerClass: 'alertInvis',
-      registerStatusAlert: '',
       errors: {}
     };
 
     // Connecting the methods to the state 
-
-    this.handleFirst = this.handleFirst.bind(this);
-    this.handleLast = this.handleLast.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handlePasswordVerif = this.handlePasswordVerif.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
-  }
-  
-  // Validates the first name
-
-  handleFirst(event) {
-    this.setState({firstName: event.target.value});
-    if(this.state.firstName.length < 2){
-      this.setState({firstAlert:"Don't leave this field blank!"})
-      this.setState({firstClass:"alertShow"})
-    }else{
-      this.setState({verifFirst: '1'})
-      this.setState({firstClass:"alertInvis"})
-    }
-  }
-
-  // Validates the last name
-
-  handleLast(event) {
-    this.setState({lastName: event.target.value});
-    if(this.state.lastName.length < 2){
-      this.setState({lastAlert:"Don't leave this field blank!"})
-      this.setState({lastClass:"alertShow"})
-    }else{
-      this.setState({verifLast: '1'})
-      this.setState({lastClass:"alertInvis"})
-    }
-  }
-
-  // Validates the username
-
-  handleUsername(event) {
-    this.setState({username: event.target.value});
-    if(this.state.username.length < 5){
-      this.setState({usernameAlert:"Username must be longer than 5 characters!"})
-      this.setState({usernameClass:"alertShow"})
-    }else{
-      this.setState({verifUsername: '1'})
-      this.setState({usernameClass:"alertInvis"})
-    }
   }
 
   // Validates the password
@@ -119,7 +58,6 @@ class Register extends React.Component {
       }else if(sum === 2 && counter[0] === 1){
         this.setState({barLabel: 'Good'})
         this.setState({barColor: 'blue'})
-        this.setState({verifPassword: '1'})
         this.setState({barValue: '50'});
       }else if(sum === 3 && counter[0] === 1){
         this.setState({barColor: 'olive'})
@@ -132,36 +70,25 @@ class Register extends React.Component {
       }
   }
 
-  // Verifies if the password verification input is the same as the password 
+  // Handles input change for most inputs
 
-  handlePasswordVerif(event) {
-    this.setState({passwordVerif: event.target.value});
-    if(event.target.value !== this.state.password){
-      this.setState({passwordVerifAlert:"The two passwords must coincide!"})
-      this.setState({passwordVerifClass:"alertShow"})
-    }else{
-      this.setState({passwordVerifClass:"alertInvis"})
-      this.setState({verifPasswordVerif: '1'})
-    }
+  handleInputChange(e) {
+    this.setState({
+        [e.target.id]: e.target.value
+    })
   }
-    
   // Handles registration via redux
 
   handleRegister(e) {
     e.preventDefault()
-    if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifPassword  === '1'&& this.state.verifPasswordVerif ==='1'){
       const user = {
-        name: this.state.name,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
         username: this.state.username,
         password: this.state.password,
-        password_confirm: this.state.password_confirm
+        password_confirm: this.state.passwordVerif
     }
     this.props.registerUser(user, this.props.history);
-    }else{
-      this.setState({registerClass: 'alertShow'})
-      this.setState({registerStatusAlert: 'Something went wrong oops'})
-      this.setState({statusClass: 'alert'})
-    }
   }
 
   // 
@@ -175,44 +102,57 @@ class Register extends React.Component {
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="container">
-        <form  onSubmit={ this.handleSubmit }>
+        <form  onSubmit={ this.handleRegister }>
         <h1>Sign up</h1>
+        <div className="form-group">
           <TextField
             id="firstName"
             label="First Name"
             margin="normal"
             variant="outlined"
-            value={this.state.value} 
-            onChange={this.handleFirst}
+            onChange={ this.handleInputChange }
+            value={ this.state.firstName }
+            className={classnames('form-control form-control-lg', {
+              'is-invalid': errors.firstName
+            })}
           />
-          <div className={this.state.firstClass}>
-            <p className="alert">{this.state.firstAlert}</p>
-          </div>
-          <br/>
+          {errors.firstName && (<div className="invalid-feedback">{errors.firstName}</div>)}
+        </div>
+        <br/>
+        <div className="form-group">
           <TextField
             id="lastName"
             label="Last Name"
             margin="normal"
             variant="outlined"
-            value={this.state.value} 
-            onChange={this.handleLast}
+            onChange={ this.handleInputChange }
+            value={ this.state.value }
+            className={classnames('form-control form-control-lg', {
+              'is-invalid': errors.lastName
+            })}
           />
-          <div className={this.state.lastClass}>
-            <p className="alert">{this.state.lastAlert}</p>
-          </div><br/>
+          {errors.lastName && (<div className="invalid-feedback">{errors.lastName}</div>)}
+        </div>
+        <div className="form-group">
+        <br/>
 				  <TextField
             id="username"
             label="Username"
             margin="normal"
             variant="outlined"
-            value={this.state.value} 
-            onChange={this.handleUsername}
+            onChange={ this.handleInputChange }
+            value={ this.state.value }
+            className={classnames('form-control form-control-lg', {
+              'is-invalid': errors.username
+            })}
           />
-          <div className={this.state.usernameClass}>
-            <p className="alert">{this.state.usernameAlert}</p>
-          </div><br/>
+          {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
+        </div>
+        <br/>
+        <div className="form-group">
 				  <TextField
             id="password"
             label="Password"
@@ -221,23 +161,34 @@ class Register extends React.Component {
             type="password"
             value={this.state.value} 
             onChange={this.handlePassword}
+            className={classnames('form-control form-control-lg', {
+              'is-invalid': errors.password
+            })}
           />
+          {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
           <Progress percent={this.state.barValue} label={this.state.barLabel} size='small' color={this.state.barColor}/>
+        </div>
+        <div className="form-group">
 				  <TextField
-            id="passwordConfirmation"
+            id="passwordVerif"
             label="Password Confirmation"
             margin="normal"
             type="password"
             variant="outlined"
-            value={this.state.value} 
-            onChange={this.handlePasswordVerif}
+            onChange={ this.handleInputChange }
+            value={ this.state.passwordVerif }
+            className={classnames('form-control form-control-lg', {
+              'is-invalid': errors.password_confirm
+            })}
           />
-          <div className={this.state.passwordVerifClass}>
-          <p className="alert">{this.state.passwordVerifAlert}</p>
-          </div><br/>
-          <Button color="blue" type="submit">
-            Sign up
-          </Button>
+          {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
+        </div>
+          <br/>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary">
+                Sign up
+            </button>
+          </div>
           <div className={this.state.registerClass}>
             <p className={this.state.statusClass}>{this.state.registerStatusAlert}</p>
           </div>
