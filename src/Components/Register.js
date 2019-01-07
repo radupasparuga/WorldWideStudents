@@ -1,17 +1,12 @@
 import React from 'react'
-import axios  from 'axios'
-import { withStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
+import { registerUser } from '../actions/authentication'
 import TextField from '@material-ui/core/TextField'
 import { Button } from 'semantic-ui-react'
 import { Progress } from 'semantic-ui-react'
 import './Register.css'
-
-const styles = theme => ({
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  }
-});
 
 class Register extends React.Component {
   constructor(props){
@@ -20,7 +15,6 @@ class Register extends React.Component {
       firstName: '', // first name input from user
       lastName: '', // last name input from user
       username: '', // username input from user
-      email: '', // email input from user
       password: '', // password input from user
       passwordVerif: '', // password verify input from user
       firstAlert:'',// alert in case first name input is invalid
@@ -29,8 +23,6 @@ class Register extends React.Component {
       lastClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
       usernameAlert:'',// alert in case username input is invalid
       usernameClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
-      emailAlert:'', // alert in case email input is invalid
-      emailClass: 'alertInvis', // class of the alert(if it's alertInvis the alert won't show)
       passwordAlert:'',// alert in case password input is invalid
       passwordClass: 'alertInvis',// class of the alert(if it's alertInvis the alert won't show)
       passwordVerifAlert:'',  // alert in case passwordVerif input is invalid
@@ -41,12 +33,12 @@ class Register extends React.Component {
       verifFirst: '0',
       verifLast: '0',
       verifUsername: '0',
-      verifEmail: '0',
       verifPassword: '0',
       verifPasswordVerif: '0',
       statusClass: '',
       registerClass: 'alertInvis',
       registerStatusAlert: '',
+      errors: {}
     };
 
     // Connecting the methods to the state 
@@ -54,7 +46,6 @@ class Register extends React.Component {
     this.handleFirst = this.handleFirst.bind(this);
     this.handleLast = this.handleLast.bind(this);
     this.handleUsername = this.handleUsername.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handlePasswordVerif = this.handlePasswordVerif.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
@@ -96,19 +87,6 @@ class Register extends React.Component {
     }else{
       this.setState({verifUsername: '1'})
       this.setState({usernameClass:"alertInvis"})
-    }
-  }
-
-  // Validates the email
-
-  handleEmail(event) {
-    this.setState({email: event.target.value});
-    if(!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(event.target.value)){
-      this.setState({emailAlert: "Please insert a valid E-mail adress!"})
-      this.setState({emailClass: "alertShow"})
-    }else{
-      this.setState({verifEmail: '1'})
-      this.setState({emailClass: "alertInvis"})
     }
   }
 
@@ -167,32 +145,35 @@ class Register extends React.Component {
     }
   }
     
-  // Sending post request for signup to API using axio
+  // Handles registration via redux
 
   handleRegister(e) {
     e.preventDefault()
-    if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifEmail  === '1'&& this.state.verifPassword  === '1'&& this.state.verifPasswordVerif ==='1'){
-      axios.post('/auth/signup', {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
+    if(this.state.verifFirst ==='1' && this.state.verifLast ==='1' && this.state.verifUsername ==='1' && this.state.verifPassword  === '1'&& this.state.verifPasswordVerif ==='1'){
+      const user = {
+        name: this.state.name,
+        username: this.state.username,
         password: this.state.password,
-        email: this.state.email,
-        username: this.state.username
-      })
-      .then((response) => {
-        this.setState({registerClass: 'alertShow'})
-        this.setState({registerStatusAlert: 'Login succesfull'})
-        this.setState({statusClass: 'success'})
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        password_confirm: this.state.password_confirm
+    }
+    this.props.registerUser(user, this.props.history);
     }else{
       this.setState({registerClass: 'alertShow'})
       this.setState({registerStatusAlert: 'Something went wrong oops'})
       this.setState({statusClass: 'alert'})
     }
   }
+
+  // 
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+        this.setState({
+            errors: nextProps.errors
+        });
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -233,19 +214,6 @@ class Register extends React.Component {
             <p className="alert">{this.state.usernameAlert}</p>
           </div><br/>
 				  <TextField
-            id="email"
-            label="E-mail"
-            margin="normal"
-            variant="outlined"
-            type="email"
-            value={this.state.value} 
-            onChange={this.handleEmail}
-          />
-          <div className={this.state.emailClass}>
-            <p className="alert">{this.state.emailAlert}</p>
-          </div>
-          <br/>
-				  <TextField
             id="password"
             label="Password"
             margin="normal"
@@ -278,6 +246,13 @@ class Register extends React.Component {
     );
   }
 }
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors
+});
 
 
-export default withStyles(styles)(Register);
+export default connect(mapStateToProps,{ registerUser })(withRouter(Register))
