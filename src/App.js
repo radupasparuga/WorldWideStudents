@@ -6,10 +6,10 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
 
-import Navbar from './Components/Navbar';
-import Register from './Components/Register';
-import Login from './Components/Login';
-import Home from './Components/Home';
+import Navbar from './components/Navbar';
+import Register from './components/Register';
+import Login from './components/Login';
+import Home from './components/Home';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
