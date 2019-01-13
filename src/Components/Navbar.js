@@ -13,11 +13,14 @@ class Navbar extends Component {
     }
 
     render() {
-        const {isAuthenticated, user} = this.props.auth;
+        const {isAuthenticated} = this.props.auth;
         const authLinks = (
             <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                    <Link className="nav-link" to="/profile">Profile</Link>
+                </li>
                 <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
-                            Logout, {user.username}
+                            Logout
                 </a>
             </ul>
         )
@@ -32,11 +35,14 @@ class Navbar extends Component {
         </ul>
       )
         return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">Redux Node Auth</Link>
+            <nav className="navbar navbar-expand-lg  navbar-light bg-light">
+                <Link className="navbar-brand" to="/">WorldWide Students</Link>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     {isAuthenticated ? authLinks : guestLinks}
                 </div>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
             </nav>
         )
     }
