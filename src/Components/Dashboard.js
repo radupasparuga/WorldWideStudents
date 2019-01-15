@@ -18,28 +18,38 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
+        store.dispatch(getUsers);
         if(!this.props.auth.isAuthenticated) {
             this.props.history.push('/login');
         }
     }
 
     render() {
-        store.dispatch(getUsers);
-        console.log(this.props)
+        let usersObj = this.props.users.users
+        let size = Object.keys(usersObj).length
+        let divUser = []
+        for(let i = 0; i < size; ++i){
+            divUser[i] = <div className="container">
+                <h4>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</h4>
+                <p>@{usersObj[i].user.username}</p>
+            </div>
+        }
         return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-            <h1>Hello</h1>
+            <div>{divUser}</div>
         </div>
         )
     }
 }
 
 Dashboard.propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    users: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    users: state.users
 })
 
 export default connect(mapStateToProps)(withRouter(Dashboard))
