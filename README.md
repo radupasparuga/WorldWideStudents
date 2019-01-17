@@ -1,7 +1,7 @@
 # Frontend for WorldWide Students
 Frontend created in React with Redux
 
-#Getting started
+# Getting started
 - clone the project
 - `npm/yarn install` 
 - make sure you also clonned the backend and had it set up https://github.com/radupasparuga/WWSBackend
@@ -9,7 +9,7 @@ Frontend created in React with Redux
 - open port 3000 in your preffered browser
 - enjoy
 
-#How it works
+# How it works
 - frontend does get/post requests to the RestApi with axios
 - responses from the api are saved in redux
 - magic and it displays on your screen
