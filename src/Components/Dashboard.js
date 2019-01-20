@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import store from '../store';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -30,8 +31,8 @@ class Dashboard extends Component {
         let divUser = []
         for(let i = 0; i < size; ++i){
             divUser[i] = <div className="container">
-                <h4>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</h4>
-                <p>@{usersObj[i].user.username}</p>
+                <Link to="/user"><h4>@{usersObj[i].user.username}</h4></Link>
+                <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
             </div>
         }
         return(
