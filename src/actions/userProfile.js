@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USERPROFILE } from './types';
+import { USERPROFILE, USERNAME } from './types';
 
 export const userProfile = (username) => dispatch => {
     axios.get('/api/users/' + username)
@@ -12,4 +12,11 @@ export const userProfile = (username) => dispatch => {
             .catch(err => {
                 console.log(err)
             });
+}
+
+export const sendUsername = (username) => dispatch => {
+                dispatch({
+                    type: USERNAME,
+                    payload: username
+                });
 }

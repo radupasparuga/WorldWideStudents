@@ -5,6 +5,7 @@ import store from '../store';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/authentication';
+import { sendUsername } from '../actions/userProfile';
 
 class Dashboard extends Component {
     componentWillReceiveProps(nextProps) {
@@ -25,13 +26,17 @@ class Dashboard extends Component {
         }
     }
 
+    // Sends selected username to state to show the profile page
+    handleUsername(username) {
+        store.dispatch(sendUsername(username));
+    }
     render() {
         let usersObj = this.props.users.users
         let size = Object.keys(usersObj).length
         let divUser = []
         for(let i = 0; i < size; ++i){
             divUser[i] = <div className="container">
-                <Link to="/user"><h4>@{usersObj[i].user.username}</h4></Link>
+                <Link to="/user" onClick={this.handleUsername(usersObj[i].user.username)}><h4>@{usersObj[i].user.username}</h4></Link>
                 <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
             </div>
         }

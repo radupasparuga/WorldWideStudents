@@ -18,7 +18,7 @@ class User extends Component {
     }
 
     componentDidMount() {
-        store.dispatch(userProfile('radupasparuga'));
+        store.dispatch(userProfile(this.props.username));
         if(!this.props.auth.isAuthenticated) {
             this.props.history.push('/login');
         }
@@ -42,7 +42,8 @@ User.propTypes = {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    userData: state.userData
+    userData: state.userData,
+    username: state.username
 })
 
 export default connect(mapStateToProps)(withRouter(User))
