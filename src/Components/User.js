@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import store from '../store';
 import { withRouter } from 'react-router-dom';
+import { userProfile } from '../actions/userProfile';
 
-class Profile extends Component {
+class User extends Component {
     componentWillReceiveProps(nextProps) {
         if(!nextProps.auth.isAuthenticated) {
             this.props.history.push('/login')
@@ -16,28 +18,32 @@ class Profile extends Component {
     }
 
     componentDidMount() {
+        store.dispatch(userProfile(this.props.username.username));
         if(!this.props.auth.isAuthenticated) {
             this.props.history.push('/login');
         }
     }
 
     render() {
-        const {user} = this.props.auth;
+        let userObj = this.props.userData.userData
         return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-            <h1>{user.firstName} {user.lastName}</h1>
-            <h4 className="text-secondary">@{user.username}</h4>
+            <h1>{userObj.firstName} {userObj.lastName}</h1>
+            <h4 className="text-secondary">@{userObj.username}</h4>
         </div>
         )
     }
 }
 
-Profile.propTypes = {
-    auth: PropTypes.object.isRequired
+User.propTypes = {
+    auth: PropTypes.object.isRequired,
+    userData: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    userData: state.userData,
+    username: state.username
 })
 
-export default connect(mapStateToProps)(withRouter(Profile))
+export default connect(mapStateToProps)(withRouter(User))
