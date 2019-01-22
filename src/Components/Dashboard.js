@@ -37,7 +37,7 @@ class Dashboard extends Component {
         let divUser = []
         for(let i = 0; i < size; ++i){
             divUser[i] = <div className="container">
-                <Link to="/user"><h4 onClick={this.handleUsername(usersObj[i].user.username)}>@{usersObj[i].user.username}</h4></Link>
+                <Link to="/user" onClick={() => this.handleUsername(usersObj[i].user.username)}><h4>@{usersObj[i].user.username}</h4></Link>
                 <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
             </div>
         }
