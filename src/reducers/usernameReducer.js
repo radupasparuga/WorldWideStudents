@@ -1,7 +1,7 @@
 import { USERNAME } from '../actions/types';
 
 const initialState = {
-    username: {}
+    username: ''
 }
 
 function usernameReducer(state = initialState, action ) {
@@ -9,7 +9,7 @@ function usernameReducer(state = initialState, action ) {
         case USERNAME:
             return {
                 ...state,
-                users: action.payload
+                username: action.payload
             }
         default: 
             return state;

@@ -18,7 +18,7 @@ class User extends Component {
     }
 
     componentDidMount() {
-        store.dispatch(userProfile(this.props.username));
+        store.dispatch(userProfile(this.props.username.username));
         if(!this.props.auth.isAuthenticated) {
             this.props.history.push('/login');
         }
