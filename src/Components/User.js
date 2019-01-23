@@ -30,6 +30,7 @@ class User extends Component {
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h1>{userObj.firstName} {userObj.lastName}</h1>
             <h4 className="text-secondary">@{userObj.username}</h4>
+            <h4 className="text-secondary">{userObj.region}, {userObj.country} </h4>
         </div>
         )
     }
