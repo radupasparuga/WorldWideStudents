@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../actions/authentication';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import classnames from 'classnames';
 
 class Register extends Component {
@@ -13,6 +14,8 @@ class Register extends Component {
             firstName: '',
             lastName: '',
             username: '',
+            country: '',
+            region: '',
             password: '',
             password_confirm: '',
             errors: {}
@@ -25,6 +28,14 @@ class Register extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    selectCountry (val) {
+        this.setState({ country: val });
+    }
+     
+    selectRegion (val) {
+        this.setState({ region: val });
     }
 
     handleSubmit(e) {
@@ -57,7 +68,7 @@ class Register extends Component {
     }
 
     render() {
-        const { errors } = this.state;
+        const { errors,country, region } = this.state;
         return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
@@ -100,6 +111,17 @@ class Register extends Component {
                     value={ this.state.username }
                     />
                     {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
+                </div>
+                <div className="form-group">
+                    <CountryDropdown
+                        value={country}
+                        onChange={(val) => this.selectCountry(val)} 
+                    />
+                    <RegionDropdown
+                        country={country}
+                        value={region}
+                        onChange={(val) => this.selectRegion(val)} 
+                    />
                 </div>
                 <div className="form-group">
                     <input
