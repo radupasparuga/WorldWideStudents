@@ -116,14 +116,22 @@ class Register extends Component {
                 </div>
                 <div className="form-group">
                     <CountryDropdown
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.country
+                        })}
                         value={country}
                         onChange={(val) => this.selectCountry(val)} 
                     />
                     <RegionDropdown
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.region
+                        })}
                         country={country}
                         value={region}
                         onChange={(val) => this.selectRegion(val)} 
                     />
+                    {errors.country && (<div className="invalid-feedback">{errors.country}</div>)}
+                    {errors.region && (<div className="invalid-feedback">{errors.region}</div>)}
                 </div>
                 <div className="form-group">
                     <input
