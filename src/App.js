@@ -14,7 +14,7 @@ import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
 import User from './components/User';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 // to add bootstrap js, fix jquery bug
 
 if(localStorage.jwtToken) {
