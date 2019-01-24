@@ -27,6 +27,7 @@ class Profile extends Component {
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h1>{user.firstName} {user.lastName}</h1>
             <h4 className="text-secondary">@{user.username}</h4>
+            <h4 className="text-secondary">{user.region}, {user.country} </h4>
         </div>
         )
     }

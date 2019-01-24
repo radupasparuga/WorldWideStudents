@@ -15,7 +15,7 @@ import Dashboard from './components/Dashboard';
 import User from './components/User';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+// to add bootstrap js, fix jquery bug
 
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);

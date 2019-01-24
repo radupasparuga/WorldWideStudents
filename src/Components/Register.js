@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../actions/authentication';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import classnames from 'classnames';
 
 class Register extends Component {
@@ -13,6 +14,8 @@ class Register extends Component {
             firstName: '',
             lastName: '',
             username: '',
+            country: '',
+            region: '',
             password: '',
             password_confirm: '',
             errors: {}
@@ -27,12 +30,22 @@ class Register extends Component {
         })
     }
 
+    selectCountry (val) {
+        this.setState({ country: val });
+    }
+     
+    selectRegion (val) {
+        this.setState({ region: val });
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         const user = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             username: this.state.username,
+            country: this.state.country,
+            region: this.state.region,
             password: this.state.password,
             password_confirm: this.state.password_confirm
         }
@@ -57,7 +70,7 @@ class Register extends Component {
     }
 
     render() {
-        const { errors } = this.state;
+        const { errors,country, region } = this.state;
         return(
         <div className="container" style={{ marginTop: '50px', width: '700px'}}>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
@@ -100,6 +113,25 @@ class Register extends Component {
                     value={ this.state.username }
                     />
                     {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
+                </div>
+                <div className="form-group">
+                    <CountryDropdown
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.country
+                        })}
+                        value={country}
+                        onChange={(val) => this.selectCountry(val)} 
+                    />
+                    <RegionDropdown
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.region
+                        })}
+                        country={country}
+                        value={region}
+                        onChange={(val) => this.selectRegion(val)} 
+                    />
+                    {errors.country && (<div className="invalid-feedback">{errors.country}</div>)}
+                    {errors.region && (<div className="invalid-feedback">{errors.region}</div>)}
                 </div>
                 <div className="form-group">
                     <input
