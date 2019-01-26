@@ -14,6 +14,7 @@ class Register extends Component {
             firstName: '',
             lastName: '',
             username: '',
+            selectedFile: null,
             country: '',
             region: '',
             password: '',
@@ -22,6 +23,7 @@ class Register extends Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleselectedFile = this.handleselectedFile.bind(this);
     }
 
     handleInputChange(e) {
@@ -38,12 +40,19 @@ class Register extends Component {
         this.setState({ region: val });
     }
 
+    handleselectedFile = event => {
+        this.setState({
+          selectedFile: event.target.files[0],
+        })
+      }
+
     handleSubmit(e) {
         e.preventDefault();
         const user = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             username: this.state.username,
+            file: this.state.selectedFile,
             country: this.state.country,
             region: this.state.region,
             password: this.state.password,
@@ -113,6 +122,13 @@ class Register extends Component {
                     value={ this.state.username }
                     />
                     {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
+                </div>
+                <div className="form-group">
+                    <input 
+                        type="file" 
+                        name="" id="" 
+                        onChange={this.handleselectedFile} 
+                    /> 
                 </div>
                 <div className="form-group">
                     <CountryDropdown
