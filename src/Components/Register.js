@@ -5,20 +5,21 @@ import { withRouter } from 'react-router-dom';
 import { registerUser } from '../actions/authentication';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import classnames from 'classnames';
+import axios from 'axios';
 
 class Register extends Component {
 
     constructor() {
         super();
         this.state = {
-            firstName: '',
-            lastName: '',
-            username: '',
+            firstName: 'Test',
+            lastName: 'Test',
+            username: 'test',
             selectedFile: null,
-            country: '',
-            region: '',
-            password: '',
-            password_confirm: '',
+            country: 'test',
+            region: 'test',
+            password: 'password12345',
+            password_confirm: 'password12345',
             errors: {}
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,6 +49,14 @@ class Register extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        const data = new FormData()
+        data.append('file', this.state.selectedFile, this.state.selectedFile.name)
+
+        axios
+            .post('/api/users/upload', data, {})
+            .then(res => {
+                console.log(res.statusText)
+            })
         const user = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
