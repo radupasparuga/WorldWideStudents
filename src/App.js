@@ -14,9 +14,6 @@ import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
 import User from './components/User';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// to add bootstrap js, fix jquery bug
-
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);
@@ -32,7 +29,7 @@ class App extends Component {
               <Navbar />
                 <Route exact path="/" component={ Home } />
                 <div className="container">
-                  <Route exact path="/user" component={ User } />
+                  <Route exact path="/users/:username" component={ User }/>
                   <Route exact path="/dashboard" component={ Dashboard } />
                   <Route exact path="/profile" component={ Profile } />
                   <Route exact path="/register" component={ Register } />
