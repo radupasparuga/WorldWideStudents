@@ -5,7 +5,6 @@ import store from '../store';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/authentication';
-import { sendUsername } from '../actions/userProfile';
 import { CountryDropdown} from 'react-country-region-selector';
 
 class Dashboard extends Component {
@@ -38,28 +37,24 @@ class Dashboard extends Component {
         this.setState({ country: val });
     }
 
-    // Sends selected username to state to show the profile page
-    handleUsername(username) {
-        store.dispatch(sendUsername(username));
-    }
-
     render() {
         let usersObj = this.props.users.users
         let size = Object.keys(usersObj).length
         let divUser = []
         for(let i = 0; i < size; ++i){
+            let link = "/users/" + usersObj[i].user.username
             if(this.state.country !== ''){
                 if(this.state.country === usersObj[i].user.country){
                     divUser[i] = 
                     <div className="container">
-                        <Link to="/user" onClick={() => this.handleUsername(usersObj[i].user.username)}><h4>@{usersObj[i].user.username}</h4></Link>
+                        <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
                         <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
                     </div>
                 }
             }else{
                 divUser[i] = 
                 <div className="container">
-                    <Link to="/user" onClick={() => this.handleUsername(usersObj[i].user.username)}><h4>@{usersObj[i].user.username}</h4></Link>
+                    <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
                     <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
                 </div>
             }
