@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import store from '../store';
+import { handlePost } from '../actions/post';
+import { logoutUser } from '../actions/authentication';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { getUsers } from '../actions/authentication';
-import { CountryDropdown} from 'react-country-region-selector';
 
 class Dashboard extends Component {
-    constructor () {
+    constructor() {
         super();
         this.state = {
-            country : ''
+            post: ''
         }
-        this.selectCountry = this.selectCountry.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    handleInputChange(e) {
+        this.setState({
+            post: e.target.value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const post = this.state.post
+        this.props.handlePost(post);
+    }
+
     componentWillReceiveProps(nextProps) {
         if(!nextProps.auth.isAuthenticated) {
             this.props.history.push('/login')
@@ -27,51 +39,22 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        store.dispatch(getUsers);
         if(!this.props.auth.isAuthenticated) {
             this.props.history.push('/login');
         }
     }
 
-    selectCountry (val) {
-        this.setState({ country: val });
-    }
-
     render() {
-        let usersObj = this.props.users.users
-        let size = Object.keys(usersObj).length
-        let divUser = []
-        for(let i = 0; i < size; ++i){
-            let link = "/users/" + usersObj[i].user.username
-            if(this.state.country !== ''){
-                if(this.state.country === usersObj[i].user.country){
-                    divUser[i] = 
-                    <div className="container">
-                        <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
-                        <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
-                    </div>
-                }
-            }else{
-                divUser[i] = 
-                <div className="container">
-                    <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
-                    <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
-                </div>
-            }
-        }
         return(
-        <div style={{ marginTop: '50px'}}>
-            <div className="row">
-                <div className="col-sm-2">
-                    <h4>Filter</h4>
-                    <CountryDropdown
-                        value={this.state.country}
-                        onChange={(val) => this.selectCountry(val)} 
-                        className="dropdown"
-                    />
-                </div>
-                <div className="col-sm-6 col-md-10">{divUser}</div>
-            </div>
+        <div>
+            <h4>Post some meme</h4>
+            <form onSubmit={ this.handleSubmit }>
+                <textarea name="" id="" cols="30" rows="5" onChange={ this.handleInputChange }>
+                </textarea>
+                <button type="submit" className="btn btn-primary">
+                    Create Post
+                </button>
+            </form>
         </div>
         )
     }
@@ -79,12 +62,11 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     auth: PropTypes.object.isRequired,
-    users: PropTypes.object.isRequired
+    handlePost: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    users: state.users
 })
 
-export default connect(mapStateToProps)(withRouter(Dashboard))
+export default connect(mapStateToProps, {handlePost})(withRouter(Dashboard))

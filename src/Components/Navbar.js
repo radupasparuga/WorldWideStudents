@@ -26,7 +26,7 @@ class Navbar extends Component {
                     <Link className="nav-link" to="/profile">Profile</Link>
                 </li>
                 <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
-                            Logout
+                    Logout
                 </a>
             </ul>
         )
