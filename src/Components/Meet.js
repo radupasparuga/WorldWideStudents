@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { getUsers } from '../actions/authentication';
 import { CountryDropdown} from 'react-country-region-selector';
 
-class Dashboard extends Component {
+class Meet extends Component {
     constructor () {
         super();
         this.state = {
@@ -77,7 +77,7 @@ class Dashboard extends Component {
     }
 }
 
-Dashboard.propTypes = {
+Meet.propTypes = {
     auth: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired
 }
@@ -87,4 +87,4 @@ const mapStateToProps = (state) => ({
     users: state.users
 })
 
-export default connect(mapStateToProps)(withRouter(Dashboard))
+export default connect(mapStateToProps)(withRouter(Meet))

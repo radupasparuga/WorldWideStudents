@@ -12,6 +12,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Meet from './components/Meet';
+import Dashboard from './components/Dashboard';
 import User from './components/User';
 
 if(localStorage.jwtToken) {
@@ -30,6 +31,7 @@ class App extends Component {
                 <Route exact path="/" component={ Home } />
                 <div className="container">
                   <Route exact path="/users/:username" component={ User }/>
+                  <Route exact path="/dashboard" component={ Dashboard } />
                   <Route exact path="/meet" component={ Meet } />
                   <Route exact path="/profile" component={ Profile } />
                   <Route exact path="/register" component={ Register } />
