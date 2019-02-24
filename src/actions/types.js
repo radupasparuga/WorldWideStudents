@@ -3,4 +3,3 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const USERS = 'USERS';
 export const USERPROFILE = 'USERPROFILE'
 export const USERNAME = 'USERNAME'
-export const POST = 'POST'
