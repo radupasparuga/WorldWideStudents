@@ -1,19 +1,19 @@
-import { USERS } from '../actions/types';
+import { USERS } from '../actions/types'
 
 const initialState = {
-    users: {}
+  users: {}
 }
 
 function usersReducer(state = initialState, action ) {
-    switch(action.type) {
-        case USERS:
-            return {
-                ...state,
-                users: action.payload
-            }
-        default: 
-            return state;
+  switch(action.type) {
+  case USERS:
+    return {
+      ...state,
+      users: action.payload
     }
+  default: 
+    return state
+  }
 }
 
-export default usersReducer; 
+export default usersReducer 
