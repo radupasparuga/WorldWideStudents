@@ -25,7 +25,7 @@ class Dashboard extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const post = this.state.post
-    this.props.handlePost(post)
+    this.props.handlePost(post, this.props.auth.user.username)
   }
 
   componentWillReceiveProps(nextProps) {

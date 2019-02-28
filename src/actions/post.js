@@ -1,9 +1,10 @@
 import axios from 'axios'
 import {GET_ERRORS} from './types'
 
-export const handlePost = (contain) => dispatch => {
-  let obj = {post:''}
+export const handlePost = (contain, username) => dispatch => {
+  let obj = {post:'', username:''}
   obj.post = contain
+  obj.usenrame = username
   axios.post('/api/users/post', obj)
     .catch(err => {
       dispatch({
