@@ -4,7 +4,8 @@ import {GET_ERRORS} from './types'
 export const handlePost = (contain, username) => dispatch => {
   let obj = {post:'', username:''}
   obj.post = contain
-  obj.usenrame = username
+  obj.username = username
+  console.log(obj.username)
   axios.post('/api/users/post', obj)
     .catch(err => {
       dispatch({
