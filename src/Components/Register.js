@@ -52,6 +52,11 @@ class Register extends Component {
     this.props.registerUser(user, this.props.history)
   }
 
+  componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/')
+    }
+  }
   componentWillReceiveProps(nextProps) {
     if(nextProps.auth.isAuthenticated) {
       this.props.history.push('/')
@@ -63,14 +68,8 @@ class Register extends Component {
     }
   }
 
-  componentDidMount() {
-    if(this.props.auth.isAuthenticated) {
-      this.props.history.push('/')
-    }
-  }
-
   render() {
-    const { errors,country, region } = this.state
+    const { errors, country, region } = this.state
     return(
       <div className="container" style={{ marginTop: '50px', width: '700px'}}>
         <h2 style={{marginBottom: '40px'}}>Registration</h2>
@@ -161,7 +160,7 @@ class Register extends Component {
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
-                        Sign up
+              Sign up
             </button>
           </div>
         </form>
@@ -172,7 +171,8 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
