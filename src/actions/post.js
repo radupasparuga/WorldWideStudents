@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_ERRORS} from './types'
+import {GET_ERRORS, ALLPOSTS} from './types'
 
 export const handlePost = (contain, username, history) => dispatch => {
   let obj = {post:'', username:''}
@@ -14,4 +14,14 @@ export const handlePost = (contain, username, history) => dispatch => {
       })
     })
   
+}
+
+export const getPosts = () => {
+  axios.get('api/users/postsList')
+    .then(res => {
+      dispatch({
+        type: ALLPOSTS,
+        payload: res.data
+      })
+    })
 }
