@@ -16,7 +16,7 @@ export const handlePost = (contain, username, history) => dispatch => {
   
 }
 
-export const getPosts = () => {
+export const getPosts = dispatch => {
   axios.get('api/users/postsList')
     .then(res => {
       dispatch({
