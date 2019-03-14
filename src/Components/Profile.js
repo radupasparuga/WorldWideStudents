@@ -23,11 +23,20 @@ class Profile extends Component {
 
   render() {
     const {user} = this.props.auth
+    let size = Object.keys(user.posts).length
+    let divPost = []
+    for(let i = 0; i < size; ++i){
+      divPost[i] = 
+        <div className="container">
+          <p>{user.posts[i]}</p>
+        </div>
+    }
     return(
       <div className="container" style={{ marginTop: '50px', width: '700px'}}>
         <h1>{user.firstName} {user.lastName}</h1>
         <h4 className="text-secondary">@{user.username}</h4>
         <h4 className="text-secondary">{user.region}, {user.country} </h4>
+        <div className="col-sm-6 col-md-10">{divPost}</div>
       </div>
     )
   }
