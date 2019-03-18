@@ -16,6 +16,11 @@ class Home extends Component {
     )
     const guest = (
       <div align = "center">
+        <div>
+          <h1>World Wide Students</h1>
+          <p>Meeting new students has never been easier!</p>
+          <p>Join us now!</p>
+        </div>
         <div className="col-md-3 col-sm-3 col-xs-6">
           <Link className="btn btn-sm animated-button thar-one" to="/register">Sign Up</Link>
         </div>

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authentication";
 import { withRouter } from "react-router-dom";
+import "../style/navbar.css"
 
 class Navbar extends Component {
   onLogout(e) {
@@ -55,7 +56,7 @@ class Navbar extends Component {
     );
     const guestLinks = (
       <nav className="navbar navbar-transparent navbar-expand-lg ">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand specialHome" to="/">
           Home
         </Link>
       </nav>

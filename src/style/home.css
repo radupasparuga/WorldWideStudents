@@ -1,9 +1,10 @@
 body, html {
   height: 100%;
+  color: #F4F4F9;
 }
 
 body  {
-  background-image: url("../img/landing.jpg");
+  background-image: url("../img/landing.png");
   /* Full height */
   height: 100%; 
 
