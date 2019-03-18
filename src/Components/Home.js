@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import '../style/home.css'
 /* eslint-enable */
 
 class Home extends Component {
@@ -14,15 +15,13 @@ class Home extends Component {
       <Dashboard />
     )
     const guest = (
-      <div>
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/register">Sign Up</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/login">Sign In</Link>
-          </li>
-        </ul>
+      <div align = "center">
+        <div className="col-md-3 col-sm-3 col-xs-6">
+          <Link className="btn btn-sm animated-button thar-one" to="/register">Sign Up</Link>
+        </div>
+        <div className="col-md-3 col-sm-3 col-xs-6">
+          <Link className="btn btn-sm animated-button thar-one" to="/login">Sign In</Link>
+        </div>
       </div>
     )
     return (

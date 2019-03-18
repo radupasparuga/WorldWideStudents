@@ -16,7 +16,7 @@ class Navbar extends Component {
     const authLinks = (
       <nav className="navbar navbar-expand-lg  navbar-light bg-light">
         <Link className="navbar-brand" to="/">
-          World Wide Students
+          Home
         </Link>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
@@ -54,9 +54,9 @@ class Navbar extends Component {
       </nav>
     );
     const guestLinks = (
-      <nav className="navbar navbar-expand-lg  navbar-light bg-light">
+      <nav className="navbar navbar-transparent navbar-expand-lg ">
         <Link className="navbar-brand" to="/">
-          World Wide Students
+          Home
         </Link>
       </nav>
     );
