@@ -57,7 +57,7 @@ class Login extends Component {
     const {errors} = this.state
     return(
       <div className="whiteBg contact-wrap">
-       <h2 style={{color: "#333"}}>Registration</h2>
+       <h2 style={{color: "#333"}}>Sign in</h2>
         <form onSubmit={ this.handleSubmit } className="contact-form">
           <div className="col-sm-12 form-container">
             <TextField
@@ -87,7 +87,7 @@ class Login extends Component {
           </div>
           <div className="col-sm-12 form-container">
             <button type="submit"  className="btn btn-primary square-button">
-              Login User
+              Sign in User
             </button>
           </div>
         </form>
