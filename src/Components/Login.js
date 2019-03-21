@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loginUser } from '../actions/authentication'
 import classnames from 'classnames'
+import TextField from '@material-ui/core/TextField'
+import "../style/register.css"
 /* eslint-enable */
 
 class Login extends Component {
@@ -54,14 +56,14 @@ class Login extends Component {
   render() {
     const {errors} = this.state
     return(
-      <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-        <h2 style={{marginBottom: '40px'}}>Login</h2>
-        <form onSubmit={ this.handleSubmit }>
-          <div className="form-group">
-            <input
+      <div className="whiteBg contact-wrap">
+       <h2 style={{color: "#333"}}>Registration</h2>
+        <form onSubmit={ this.handleSubmit } className="contact-form">
+          <div className="col-sm-12 form-container">
+            <TextField
               type="username"
-              placeholder="Username"
-              className={classnames('form-control form-control-lg', {
+              label="Username"
+              className={classnames('form-control', {
                 'is-invalid': errors.username
               })}
               name="username"
@@ -70,11 +72,11 @@ class Login extends Component {
             />
             {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
           </div>
-          <div className="form-group">
-            <input
+          <div className="col-sm-12 form-container">
+            <TextField
               type="password"
-              placeholder="Password"
-              className={classnames('form-control form-control-lg', {
+              label="Password"
+              className={classnames('form-control', {
                 'is-invalid': errors.password
               })} 
               name="password"
@@ -83,8 +85,8 @@ class Login extends Component {
             />
             {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
           </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
+          <div className="col-sm-12 form-container">
+            <button type="submit"  className="btn btn-primary square-button">
               Login User
             </button>
           </div>
