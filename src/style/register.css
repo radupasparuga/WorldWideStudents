@@ -1,0 +1,62 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
+
+.whiteBg {
+  background-color: white;
+  padding: 5px;
+}
+
+/* Contact form styling */
+.contact-form  .form-control {
+  height: auto;
+  resize: none;
+}
+.form-container {
+  margin-bottom: 20px;
+}
+.contact-form .form-control {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  font-size: 18px;
+  color: #333;
+}
+
+.contact-form .square-button {
+  background-color:#F4F4F9;
+  color: #333;
+  font-size: 26px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 0 60px;
+  height: 60px;
+  border: none;
+  width: 100%;
+}
+.contact-form .square-button:hover, .contact-form .square-button:focus {
+  background-color: white;
+}
+
+@media (min-width: 768px) {
+  .contact-wrap {
+    width: 60%;
+    margin: auto;
+  }
+}
+/* End of contact form styling */

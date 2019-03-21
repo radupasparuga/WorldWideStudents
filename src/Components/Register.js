@@ -3,8 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { registerUser } from '../actions/authentication'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import classnames from 'classnames'
+import "../style/register.css"
 
 class Register extends Component {
 
@@ -71,27 +75,28 @@ class Register extends Component {
   render() {
     const { errors, country, region } = this.state
     return(
-      <div className="container" style={{ marginTop: '50px', width: '700px'}}>
-        <h2 style={{marginBottom: '40px'}}>Registration</h2>
-        <form onSubmit={ this.handleSubmit }>
-          <div className="form-group">
-            <input
+      <div className="whiteBg contact-wrap">
+        <h2 style={{color: "#333"}}>Registration</h2>
+        <form onSubmit={ this.handleSubmit } className="contact-form">
+          <div className="col-sm-6 form-container">
+            <TextField
               type="text"
-              placeholder="First Name"
-              className={classnames('form-control form-control-lg', {
+              label="First Name"
+              className={classnames('form-control', {
                 'is-invalid': errors.firstName
               })}
               name="firstName"
               onChange={ this.handleInputChange }
               value={ this.state.firstName }
+              margin = "normal"
             />
             {errors.firstName && (<div className="invalid-feedback">{errors.firstName}</div>)}
           </div>
-          <div className="form-group">
-            <input
+          <div className="col-sm-6 form-container">
+            <TextField
               type="text"
-              placeholder="Last Name"
-              className={classnames('form-control form-control-lg', {
+              label="Last Name"
+              className={classnames('form-control', {
                 'is-invalid': errors.lastName
               })}
               name="lastName"
@@ -100,11 +105,11 @@ class Register extends Component {
             />
             {errors.lastName && (<div className="invalid-feedback">{errors.lastName}</div>)}
           </div>
-          <div className="form-group">
-            <input
+          <div className="col-sm-12 form-container">
+            <TextField
               type="username"
-              placeholder="Username"
-              className={classnames('form-control form-control-lg', {
+              label="Username"
+              className={classnames('form-control', {
                 'is-invalid': errors.username
               })}
               name="username"
@@ -113,16 +118,16 @@ class Register extends Component {
             />
             {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
           </div>
-          <div className="form-group">
+          <div className="col-sm-12 form-container">
             <CountryDropdown
-              className={classnames('form-control form-control-lg', {
+              className={classnames('form-control', {
                 'is-invalid': errors.country
               })}
               value={country}
               onChange={(val) => this.selectCountry(val)} 
             />
             <RegionDropdown
-              className={classnames('form-control form-control-lg', {
+              className={classnames('form-control', {
                 'is-invalid': errors.region
               })}
               country={country}
@@ -132,11 +137,11 @@ class Register extends Component {
             {errors.country && (<div className="invalid-feedback">{errors.country}</div>)}
             {errors.region && (<div className="invalid-feedback">{errors.region}</div>)}
           </div>
-          <div className="form-group">
-            <input
+          <div className="col-sm-12 form-container">
+            <TextField
               type="password"
-              placeholder="Password"
-              className={classnames('form-control form-control-lg', {
+              label="Password"
+              className={classnames('form-control', {
                 'is-invalid': errors.password
               })}
               name="password"
@@ -145,11 +150,11 @@ class Register extends Component {
             />
             {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
           </div>
-          <div className="form-group">
-            <input
+          <div className="col-sm-12 form-container">
+            <TextField
               type="password"
-              placeholder="Confirm Password"
-              className={classnames('form-control form-control-lg', {
+              label="Confirm Password"
+              className={classnames('form-control', {
                 'is-invalid': errors.password_confirm
               })}
               name="password_confirm"
@@ -158,8 +163,8 @@ class Register extends Component {
             />
             {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
           </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
+          <div className="col-sm-12 form-container">
+            <button type="submit"  className="btn btn-primary square-button">
               Sign up
             </button>
           </div>
