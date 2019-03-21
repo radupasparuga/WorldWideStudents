@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { registerUser } from '../actions/authentication'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
+import MenuItem from '@material-ui/core/MenuItem';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import classnames from 'classnames'
 import "../style/register.css"
