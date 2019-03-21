@@ -118,7 +118,7 @@ class Register extends Component {
             />
             {errors.username && (<div className="invalid-feedback">{errors.username}</div>)}
           </div>
-          <div className="col-sm-12 form-container">
+          <div className="col-sm-6 form-container">
             <CountryDropdown
               className={classnames('form-control', {
                 'is-invalid': errors.country
@@ -126,6 +126,9 @@ class Register extends Component {
               value={country}
               onChange={(val) => this.selectCountry(val)} 
             />
+            {errors.country && (<div className="invalid-feedback">{errors.country}</div>)}
+            </div>
+            <div className="col-sm-6 form-container">
             <RegionDropdown
               className={classnames('form-control', {
                 'is-invalid': errors.region
@@ -134,9 +137,8 @@ class Register extends Component {
               value={region}
               onChange={(val) => this.selectRegion(val)} 
             />
-            {errors.country && (<div className="invalid-feedback">{errors.country}</div>)}
             {errors.region && (<div className="invalid-feedback">{errors.region}</div>)}
-          </div>
+            </div>
           <div className="col-sm-12 form-container">
             <TextField
               type="password"

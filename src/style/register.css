@@ -31,7 +31,7 @@
 }
 
 .contact-form .square-button {
-  background-color:#F4F4F9;
+  background-color:#B8DBD9;
   color: #333;
   font-size: 26px;
   text-transform: uppercase;
@@ -50,7 +50,7 @@
   width: 100%;
 }
 .contact-form .square-button:hover, .contact-form .square-button:focus {
-  background-color: white;
+  background-color: #586F7C;
 }
 
 @media (min-width: 768px) {
