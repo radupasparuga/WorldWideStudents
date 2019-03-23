@@ -15,7 +15,7 @@ class Navbar extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     const authLinks = (
-      <nav className="navbar navbar-expand-lg  navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg  navbar-light">
         <Link className="navbar-brand" to="/">
           Home
         </Link>

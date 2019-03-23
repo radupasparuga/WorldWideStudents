@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { getUsers } from '../actions/authentication'
 import { CountryDropdown} from 'react-country-region-selector'
+import '../style/meet.css'
 /* eslint-enable */
 
 class Meet extends Component {
