@@ -57,8 +57,9 @@ class Login extends Component {
   render() {
     const {errors} = this.state
     return(
+      <div>
+      <img src={bg} className="bgImg" />
       <div className="whiteBg contact-wrap">
-        <img src={bg} className="bgImg" />
         <h2 style={{color: "#333"}}>Sign in</h2>
         <form onSubmit={ this.handleSubmit } className="contact-form">
           <div className="col-sm-12 form-container">
@@ -93,6 +94,7 @@ class Login extends Component {
             </button>
           </div>
         </form>
+      </div>
       </div>
     )
   }
