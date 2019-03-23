@@ -2,3 +2,46 @@
   background-color: white;
   height: 100vh;
 }
+
+.postBtn { 
+  color: #F4F4F9; 
+  background-color: #B8DBD9; 
+} 
+ 
+.postBtn:hover, 
+.postBtn:focus, 
+.postBtn:active, 
+.postBtn.active, 
+.open .dropdown-toggle.postBtn { 
+  color: #F4F4F9; 
+  background-color: #2F4550; 
+} 
+ 
+.postBtn:active, 
+.postBtn.active, 
+.open .dropdown-toggle.postBtn { 
+  background-image: none; 
+} 
+ 
+.postBtn.disabled, 
+.postBtn[disabled], 
+fieldset[disabled] .postBtn, 
+.postBtn.disabled:hover, 
+.postBtn[disabled]:hover, 
+fieldset[disabled] .postBtn:hover, 
+.postBtn.disabled:focus, 
+.postBtn[disabled]:focus, 
+fieldset[disabled] .postBtn:focus, 
+.postBtn.disabled:active, 
+.postBtn[disabled]:active, 
+fieldset[disabled] .postBtn:active, 
+.postBtn.disabled.active, 
+.postBtn[disabled].active, 
+fieldset[disabled] .postBtn.active { 
+  background-color: #B8DBD9; 
+} 
+ 
+.postBtn .badge { 
+  color: #B8DBD9; 
+  background-color: #F4F4F9; 
+}

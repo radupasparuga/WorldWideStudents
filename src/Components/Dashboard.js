@@ -64,12 +64,11 @@ class Dashboard extends Component {
         </div>
     } */
     return(
-      <div>
-        <h4>Post some meme</h4>
+      <div className="container">
+        <h4>Add a post!</h4>
         <form onSubmit={ this.handleSubmit }>
-          <textarea name="" id="" cols="30" rows="5" onChange={ this.handleInputChange }>
-          </textarea>
-          <button type="submit" className="btn btn-primary">
+          <textarea name="" id="" cols="30" rows="2" onChange={ this.handleInputChange }></textarea>
+          <button type="submit" className="btn postBtn">
             Create Post
           </button>
         </form>
