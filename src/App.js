@@ -29,7 +29,7 @@ class App extends Component {
           <div>
             <Navbar />
             <Route exact path='/' component={Home} />
-            <div className='container'>
+            <div>
               <Route exact path='/users/:username' component={User} />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/meet' component={Meet} />

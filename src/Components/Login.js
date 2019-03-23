@@ -6,6 +6,7 @@ import { loginUser } from '../actions/authentication'
 import classnames from 'classnames'
 import TextField from '@material-ui/core/TextField'
 import "../style/register.css"
+import bg from '../img/landing.png'
 /* eslint-enable */
 
 class Login extends Component {
@@ -57,7 +58,8 @@ class Login extends Component {
     const {errors} = this.state
     return(
       <div className="whiteBg contact-wrap">
-       <h2 style={{color: "#333"}}>Sign in</h2>
+        <img src={bg} className="bgImg" />
+        <h2 style={{color: "#333"}}>Sign in</h2>
         <form onSubmit={ this.handleSubmit } className="contact-form">
           <div className="col-sm-12 form-container">
             <TextField

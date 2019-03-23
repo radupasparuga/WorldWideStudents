@@ -4,6 +4,7 @@ import { handlePost, getPosts } from '../actions/post'
 import store from '../store'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import '../style/dashboard.css'
 /* eslint-enable */
 
 class Dashboard extends Component {

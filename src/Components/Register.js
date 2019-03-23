@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
 import classnames from 'classnames'
 import "../style/register.css"
+import bg from '../img/landing.png'
 
 class Register extends Component {
 
@@ -73,6 +74,8 @@ class Register extends Component {
   render() {
     const { errors, country, region } = this.state
     return(
+      <div style={{width:"100%", height:"100%", margin: "0"}}>
+        <img src={bg} className="bgImg" />
       <div className="whiteBg contact-wrap">
         <h2 style={{color: "#333"}}>Registration</h2>
         <form onSubmit={ this.handleSubmit } className="contact-form">
@@ -169,6 +172,7 @@ class Register extends Component {
             </button>
           </div>
         </form>
+      </div>
       </div>
     )
   }

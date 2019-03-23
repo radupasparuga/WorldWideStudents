@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import '../style/home.css'
+import bg from '../img/landing.png'
 /* eslint-enable */
 
 class Home extends Component {
@@ -16,6 +17,7 @@ class Home extends Component {
     )
     const guest = (
       <div align = "center">
+        <img src={bg} className="bgImg" />
         <div>
           <h1>World Wide Students</h1>
           <p>Meeting new students has never been easier!</p>

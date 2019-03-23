@@ -54,13 +54,7 @@ class Navbar extends Component {
         </button>
       </nav>
     );
-    const guestLinks = (
-      <nav className="navbar navbar-transparent navbar-expand-lg ">
-        <Link className="navbar-brand specialHome" to="/">
-          Home
-        </Link>
-      </nav>
-    );
+    const guestLinks = (<div></div>);
     return <div>{isAuthenticated ? authLinks : guestLinks}</div>;
   }
 }
