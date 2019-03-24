@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import Card from '@material-ui/core/Card'
 
 class Profile extends Component {
   componentWillReceiveProps(nextProps) {
@@ -27,17 +28,17 @@ class Profile extends Component {
     let divPost = []
     for(let i = 0; i < size; ++i){
       divPost[i] = 
-        <div className="container">
+        <Card className="userCard">
           <p>{user.posts[i]}</p>
-        </div>
+        </Card>
     }
     return(
-      <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+      <Card className="container" style={{ marginTop: '50px', maxWidth: '700px'}}>
         <h1>{user.firstName} {user.lastName}</h1>
         <h4 className="text-secondary">@{user.username}</h4>
         <h4 className="text-secondary">{user.region}, {user.country} </h4>
         <div className="col-sm-6 col-md-10">{divPost}</div>
-      </div>
+      </Card>
     )
   }
 }
