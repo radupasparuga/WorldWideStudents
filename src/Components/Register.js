@@ -78,7 +78,7 @@ class Register extends Component {
         <img src={bg} className="bgImg" />
         <div className="whiteBg contact-wrap">
           <h2 style={{ color: "#333" }}>Registration</h2>
-          <form onSubmit={this.handleSubmit} className="contact-form">
+          <form onSubmit={this.handleSubmit} className="contact-form row">
             <div className="col-sm-6 form-container">
               <TextField
                 type="text"

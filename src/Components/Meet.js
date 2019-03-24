@@ -7,6 +7,10 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { getUsers } from '../actions/authentication'
 import { CountryDropdown} from 'react-country-region-selector'
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 import '../style/meet.css'
 /* eslint-enable */
 
@@ -49,23 +53,27 @@ class Meet extends Component {
       if(this.state.country !== ''){
         if(this.state.country === usersObj[i].user.country){
           divUser[i] = 
-            <div className="container">
-              <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
-              <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
-            </div>
+            <Card className="userCard">
+              <CardContent>
+                <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
+                <Typography gutterBottom variant="h5" component="h2">{usersObj[i].user.firstName} {usersObj[i].user.lastName}</Typography >
+              </CardContent>
+            </Card>
         }
       }else{
         divUser[i] = 
-                <div className="container">
-                  <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
-                  <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
-                </div>
+          <Card className="userCard">
+            <CardContent>
+              <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
+              <Typography gutterBottom variant="h5" component="h2">{usersObj[i].user.firstName} {usersObj[i].user.lastName}</Typography >
+            </CardContent>
+          </Card>
       }
     }
     return(
       <div style={{ marginTop: '50px'}}>
-        <div className="row">
-          <div className="col-sm-2">
+        <div className="row container">
+          <div className="col-md-4">
             <h4>Filter</h4>
             <CountryDropdown
               value={this.state.country}
@@ -73,7 +81,7 @@ class Meet extends Component {
               className="dropdown"
             />
           </div>
-          <div className="col-sm-6 col-md-10">{divUser}</div>
+          <div className="col-md-8">{divUser}</div>
         </div>
       </div>
     )
