@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
+import '../style/profile.css'
 
 class User extends Component {
   constructor() {
@@ -58,12 +59,12 @@ class User extends Component {
     let divPost = []
     for(let i = 0; i < size; ++i){
       divPost[i] = 
-        <Card className="userCard">
+        <Card className="postCard">
           <p>{this.state.posts[i]}</p>
         </Card>
     }
     return(
-      <Card className="container" style={{ marginTop: '50px', width: '700px'}}>
+      <Card className="container profileCard" style={{ marginTop: '50px', width: '700px'}}>
         <h1>{this.state.firstName} {this.state.lastName}</h1>
         <h4 className="text-secondary">@{this.state.username}</h4>
         <h4 className="text-secondary">{this.state.region}, {this.state.country} </h4>
