@@ -4,6 +4,7 @@ import { handlePost, getPosts } from '../actions/post'
 import store from '../store'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import classnames from 'classnames'
 import '../style/dashboard.css'
 /* eslint-enable */
 
@@ -11,7 +12,8 @@ class Dashboard extends Component {
   constructor() {
     super()
     this.state = {
-      post: ''
+      post: '',
+      errors: {}
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -49,6 +51,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { errors } = this.state
     /*
     TODO DASHBOARD TO SHOW ALL POSTS BY TIME
     
@@ -67,10 +70,13 @@ class Dashboard extends Component {
       <div className="container">
         <h4>Add a post!</h4>
         <form onSubmit={ this.handleSubmit }>
-          <textarea name="" id="" cols="30" rows="2" onChange={ this.handleInputChange }></textarea>
+          <textarea name="" id="" cols="30" rows="2" onChange={this.handleInputChange} className={classnames('form-control', {
+            'is-invalid': errors.post
+          })}></textarea>
           <button type="submit" className="btn postBtn">
             Create Post
           </button>
+          {errors.post && (<div className="invalid-feedback">{errors.post}</div>)}
         </form>
       </div>
     )
@@ -80,12 +86,14 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   handlePost: PropTypes.func.isRequired,
-  posts: PropTypes.object.isRequired
+  posts: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  posts: state.posts
+  posts: state.posts,
+  errors: state.errors
 })
 
 export default connect(mapStateToProps, {handlePost})(withRouter(Dashboard))
