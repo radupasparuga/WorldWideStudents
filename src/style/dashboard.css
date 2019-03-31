@@ -6,6 +6,7 @@
 .postBtn { 
   color: #F4F4F9; 
   background-color: #B8DBD9; 
+  margin:10px 0px;
 } 
  
 .postBtn:hover, 
@@ -44,4 +45,8 @@ fieldset[disabled] .postBtn.active {
 .postBtn .badge { 
   color: #B8DBD9; 
   background-color: #F4F4F9; 
+}
+
+.postsContainer {
+  margin-top: 10px;
 }

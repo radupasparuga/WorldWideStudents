@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handlePost, getPosts } from '../actions/post'
+import { Link } from "react-router-dom"
 import store from '../store'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
+import Card from '@material-ui/core/Card'
 import '../style/dashboard.css'
 /* eslint-enable */
 
@@ -52,20 +54,20 @@ class Dashboard extends Component {
 
   render() {
     const { errors } = this.state
-    /*
-    TODO DASHBOARD TO SHOW ALL POSTS BY TIME
     
     let postsObj = this.props.posts.allPosts
     let size = Object.keys(postsObj).length
     let divPost = []
-    for(let i = 0; i < size; ++i){
-      let link = '/getUsers/' + postsObj[i].user.username
-      divUser[i] = 
-        <div className="container">
-          <Link to={link}><h4>@{usersObj[i].user.username}</h4></Link>
-          <p>{usersObj[i].user.firstName} {usersObj[i].user.lastName}</p>
-        </div>
-    } */
+    let j = 0;
+    for(let i = size-1; i >= 0; --i){
+      let link = '/users/' + postsObj[i].username
+      divPost[j++] = 
+        <Card className="postCard">
+          <Link to={link}><h4>@{postsObj[i].username}</h4></Link>
+          <p>{postsObj[i].post} </p>
+        </Card>
+    } 
+    console.log(divPost)
     return(
       <div className="container">
         <h4>Add a post!</h4>
@@ -78,6 +80,7 @@ class Dashboard extends Component {
           </button>
           {errors.post && (<div className="invalid-feedback">{errors.post}</div>)}
         </form>
+        <Card className="container profileCard postsContainer">{divPost}</Card>
       </div>
     )
   }
